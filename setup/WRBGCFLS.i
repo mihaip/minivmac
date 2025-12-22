@@ -399,7 +399,7 @@ LOCALPROC WriteBashGccMakeFile(void)
 				WriteCStrToDestFile(" -L$(DEVKITPRO)/libnds/lib");
 				WriteCStrToDestFile(" -lfilesystem -lfat -lnds9");
 			} else if (gbk_apifam_esc == gbo_apifam) {
-				WriteCStrToDestFile(" -gsource-map");
+				WriteCStrToDestFile("-gsource-map -g2 -lexports.js");
 				WriteCStrToDestFile(" -s INITIAL_MEMORY=50331648"); // 48 MB
 				WriteCStrToDestFile(" -s MODULARIZE -s EXPORT_ES6 -s EXPORT_NAME=emulator");
 				WriteCStrToDestFile(" -s 'EXPORTED_RUNTIME_METHODS=[\"FS\",\"HEAPU8\"]'");
