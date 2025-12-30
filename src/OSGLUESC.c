@@ -1006,6 +1006,9 @@ LOCALPROC CheckForSavedTasks(void)
 
 /* --- input --- */
 
+#define MKC_Interrupt 0x90
+#define MKC_Reset     0x91
+
 LOCALPROC ReadJSInput(void)
 {
     int lock = EM_ASM_INT_V({ return workerApi.acquireInputLock(); });
@@ -1046,7 +1049,14 @@ LOCALPROC ReadJSInput(void)
             return workerApi.getInputValue(workerApi.InputBufferAddresses.keyStateAddr);
         });
 
-        Keyboard_UpdateKeyMap2(keycode, keystate == 0 ? falseblnr : trueblnr);
+        blnr down = keystate != 0;
+        if (keycode == MKC_Interrupt && down) {
+            WantMacInterrupt = trueblnr;
+		} else if (keycode == MKC_Reset && down) {
+			WantMacReset = trueblnr;
+        } else {
+            Keyboard_UpdateKeyMap2(keycode, down);
+        }
     }
     int hasSpeed = EM_ASM_INT_V({
         return workerApi.getInputValue(workerApi.InputBufferAddresses.speedFlagAddr);
