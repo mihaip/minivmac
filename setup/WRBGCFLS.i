@@ -401,7 +401,7 @@ LOCALPROC WriteBashGccMakeFile(void)
 			} else if (gbk_apifam_esc == gbo_apifam) {
 				WriteCStrToDestFile("-gsource-map -g2 -lexports.js");
 				WriteCStrToDestFile(" -s INITIAL_MEMORY=50331648"); // 48 MB
-				WriteCStrToDestFile(" -s MODULARIZE -s EXPORT_ES6 -s EXPORT_NAME=emulator");
+				WriteCStrToDestFile(" -s EXIT_RUNTIME=1 -s MODULARIZE -s EXPORT_ES6 -s EXPORT_NAME=emulator");
 				WriteCStrToDestFile(" -s 'EXPORTED_RUNTIME_METHODS=[\"FS\",\"HEAPU8\"]'");
 				WriteCStrToDestFile(" -s 'EXPORTED_FUNCTIONS=[\"_malloc\", \"_free\", \"_main\"]'");
 				WriteCStrToDestFile(" -s ENVIRONMENT=worker");
